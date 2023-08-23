@@ -1,0 +1,157 @@
+  # if 'origin' in request.GET and 'dest' in request.GET  and 'dep_date' in request.GET \
+    #     and 'adults' in request.GET and 'youths' in request.GET and 'children' in request.GET \
+    #     and 'infants' in request.GET:
+        #   origin = request.GET['origin']
+        # dest = request.GET['dest']
+        # dep_date = request.GET['dep_date']
+        # adults = request.GET['adults']
+        # youths = request.GET['youths']
+        # children = request.GET['children']
+        # infants = request.GET['infants']
+
+            # Todo
+            """"
+                Get the flights for the origin and dest -> can u get schedules out of this?, aeroplane?, sits available in the aeroplane?, count of the sits?
+                Get the schedules for the origin and dest
+                get the aeroplane
+                get the sits in the aeroplane
+                get the number of empty sits in the aeroplane
+                compare the number with total passengers. 
+                Recomend if greater than total pass
+                
+            """
+ 
+ # flights = Flight.objects.filter(origin=origin, dest=dest, schedules__aeroplane__in=planes) # how can i make this query return schedules for dates from today only
+            
+            # for flight in flights:
+            #     schedules = flight.schedules.filter(dep_date__gte=datetime.today()).all()
+            #     flight.schedules.set(schedules) # this is affecting the database, it removes schedules b4 today from this flight
+            #     flight.save(commit=False)
+               
+            # # Check flight for dep_date only
+            # flights_on_dep_date = flights.filter(schedules__dep_date=dep_date).all()
+            # if(flights_on_dep_date):
+            #     # Filter flights by deperture date
+            #     todayFlights = flights_on_dep_date
+            # else:
+            #      flights = flights.all()
+            #      todayFlights = []
+# schedules = Schedule.objects.filter(dep_date__gte=datetime.today(), aeroplane__in=planes, flights__origin=origin, flights__dest=dest)
+           # flights = Flight.objects.filter(origin=origin, dest=dest)
+            # required_schedules = []
+            # for schedule in schedules:
+            #     if schedule.flights == flights:
+            #         required_schedules.append(schedule)
+
+             {% if schedules and flights %}
+            <p>Flights found:</p>
+            {% for schedule in schedules %}
+                <div>
+                    {% for flight in schedule.flights.all%}
+                    <p>
+                        {{ flight.origin }} {{ flight.dest }} 
+                    </p>
+                    <table>
+                        <thead>
+
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th></th>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div>
+                            
+                            <p>{{ schedule.dep_date }} - {{ schedule.arrival_date }} </p>
+                            {% for time in schedule.times.all %}
+                                <p>{{ time.dep_time }} - {{ time.arrival_time}}</p>
+                            {% endfor %}
+                    {% endfor %}
+                    </div>
+                </div>
+               
+                 
+            {% endfor %} 
+        {% else %}<p>No flights found maching your search</p> 
+
+    Flight changed
+# flight_class = models.ForeignKey(FlightClass,
+    #                              related_name="flights",
+    #                              on_delete=models.PROTECT)
+
+ # class_a_exe = []
+                                # class_b
+                                # for seat in seats:
+                                #     seat_class = seat.seat_class
+                                    
+                                #     time_data.setdefault(seat_class, []).append(seat)
+
+                                {% for schedule in schedules %}
+                {% ifchanged schedule.dep_date %}
+                    <p>{{ schedule.dep_date }} - {{ schedule.arrival_date }} </p>
+                    <div>
+                        {% for flight in schedule.flights.all %}
+                            {% if flight.origin == origin and flight.dest == dest %}
+                                
+                                {% for time in schedule.times.all %}
+                                    {% ifchanged time.dep_time %}
+                                    
+                                            <p>{{ time.dep_time }} - {{ time.arrival_time }}</p>
+                                    {% endifchanged %}
+                                
+                                {% endfor %}                            
+                            {% endif %}
+                        {% endfor %}
+                {% endifchanged %}
+            
+                    <table>
+                        <thead>
+
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th></th>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div>
+                            
+                   
+                    </div>
+                </div>
+
+
+{% for date, times in schedule.items %}
+                    <p>{{ date.dep_date }} - {{ date.dep_time}}</p><br>
+                    {% for time in times %}
+                        <span>{{ time.dep_time}} - {{ time.arrival_time }}</span>
+                        {% if time.class_a_exe >= total_travellers %}
+                            Class A Executive
+                        {% endif %}
+                        {% if time.class_b_mid >= total_travellers %}
+                            Class B Middle
+                        {% endif %}
+                        {% if time.class_c_lower >= total_travellers %}
+                            Class C Lower
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+
+                
+ <p>Dates: {{ date.dep_date }} - {{ date.arrival_date}}</p><br>
+                    {% for time in times %}
+                        <div>
+                            <span>Times: {{ time.dep_time}} - {{ time.arrival_time }}</span>
+                            {% if time.class_a_exe >= total_travellers %}
+                                <span>Class A Executive</span>
+                            {% endif %}
+                            {% if time.class_b_mid >= total_travellers %}
+                                <span>Class B Middle</span>
+                            {% endif %}
+                            {% if time.class_c_lower >= total_travellers %}
+                                <span>Class C Lower</span>
+                            {% endif %}
+                        </div>
+
+                    {% endfor %}

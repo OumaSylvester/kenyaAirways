@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horizontal Scrollable Container</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="scrollable-container">
+            <div class="items">
+                <div class="item">Item 1</div>
+                <div class="item">Item 2</div>
+                <div class="item">Item 3</div>
+                <div class="item">Item 4</div>
+                <div class="item">Item 5</div>
+                <div class="item">Item 6</div>
+                <div class="item">Item 7</div>
+                <div class="item">Item 8</div>
+            </div>
+        </div>
+        <button class="scroll-btn prev-btn">&#8249;</button>
+        <button class="scroll-btn next-btn">&#8250;</button>
+    </div>
+    <script>        
+        const scrollableContainer = document.querySelector('.scrollable-container');
+        const prevBtn = document.querySelector('.prev-btn');
+        const nextBtn = document.querySelector('.next-btn');
+        const itemWidth = 220; // Adjust this based on your item width and margin
+
+        prevBtn.addEventListener('click', () => {
+        scrollableContainer.scrollBy({
+            left: -itemWidth,
+            behavior: 'smooth'
+        });
+        });
+
+        nextBtn.addEventListener('click', () => {
+        scrollableContainer.scrollBy({
+            left: itemWidth,
+            behavior: 'smooth'
+        });
+        });
+    </script>
+</body>
+</html>

@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-d79&zmj3-46vuv8db2(u51r*$5^(f74a20k%5t3ms77ygm2hkc
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1", "*"]
 
 
 # Application definition
@@ -37,8 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 'booking',
+    'django_daraja',
     'booking.apps.BookingConfig',
     'rest_framework',
+
 ]
 
 MIDDLEWARE = [
@@ -64,6 +67,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'booking.context_processors.booking'
             ],
         },
     },
@@ -127,4 +131,22 @@ STATIC_ROOT = BASE_DIR / 'staticfiles/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-BOOKINGS_ID = 'bookings'
+BOOKING_SESSION_ID = 'bookings'
+
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'reubensleeq@gmail.com'
+EMAIL_HOST_PASSWORD = 'buthvchgracmqaam'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+
+MPESA_ENVIRONMENT = 'sandbox'
+MPESA_CONSUMER_KEY = 'pGjKwt2KESaYGPPpDxhANXUXSXByMdyF'
+MPESA_CONSUMER_SECRET = 'P6FN95DkuPSVm56g'
+MPESA_SHORTCODE = '600247'
+MPESA_EXPRESS_SHORTCODE = '174379'
+MPESA_SHORTCODE_TYPE = 'paybill'
+MPESA_PASSKEY = 'bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919'
+MPESA_INITIATOR_USERNAME = 'BlueAirlines'
+MPESA_INITIATOR_SECURITY_CREDENTIAL = 'HatyPs6/MD8upXjMM6ne+ra5rLCxqDNSZNaDipTs8C/R8eGh3ELxWf1mkxbWqRmRPH3OB+sjYk7+t9CgYhUlB0tLRmZ2EXKfzu06h6WUxdbBm5eme2P548RFnizBpwk+1G0g0Ftse+Z+X+BnXwvGHEKgI00DsOE4Ex4UTPVpJaEShK7mEMow7TDc43EqUkTtodxXFHYgdY0cpOgtnFQdjRUdER8KUPbNliCbY1S58oAjkHVFU2kjVF8HWplrv/pXVPc2I40L+xbanwrHxxYFW3RGGnwmNr57thXdvFpYDOPI2OxEs40P4NEGISuLeo8bIR+R4aQq7l6ri4kkVa+QpA=='

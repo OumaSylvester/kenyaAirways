@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Search Flight {% endblock %}
+{% block content %}
+
+    
+        <div class="row">
+            <div class="col-sm-8">
+                <form action="{% url  'booking:add_passenger' %}" method="post">
+                    {% csrf_token %}
+                    <h2 class="h2">Enter Your Details</h2>
+                        <div class="mb-3 row col-sm-6">
+                            <label for="{{ form.first_name.id_for_label }}" class="form-label"> First Name*</label>
+                            {{ form.first_name }}
+                        </div>
+
+                        <div class="mb-3 row col-sm-6">
+                            <label for="{{ form.last_name.id_for_label }}" class="form-label">Last Name*</label>
+                            {{ form.last_name }}
+                        </div>
+
+                        <div class="mb-3 row col-sm-6">
+                            
+                            <label for="{{ form.email.id_for_label }}" class="form-label">Email*</label>
+                            {{ form.email }}                      
+                        </div>
+                        
+                        <div class="mb-3 row col-sm-6">
+                            <label for="{{ form.telephone.id_for_label }}" class="form-label">Telephone*</label>
+                            {{ form.telephone }}
+                        </div>
+
+                        <div class="mb-3 row col-sm-6">
+                            <label for="{{ form.national_id.id_for_label }}" class="form-label">National ID*</label>
+                            {{ form.national_id }}
+                        </div>
+
+                        <div class="mb-3 row col-sm-6">
+                            <label for="{{ form.passport_id.id_for_label }}" class="form-label">Passport ID*</label>
+                            {{ form.passport_id }}
+                        </div>
+                        <div class="mb-3 row col-sm-6">
+                            <input type="submit" name="submit" value="Submit" class=" form-control btn btn-lg btn-primary"/>
+                        </div>
+                </form>
+            </div>
+            <aside class="col-4">
+                <h1>Your booking</h1>
+                <p id='side_seat_class'>{{booking.origin}} - {{booking.dest}}</p>
+                {% if booking.seat_class %}
+                    <p>{{booking.seat_class}}</p>
+                {% endif %}
+                <hr>
+                <p>{{ booking.total_travellers }} Traveller{{ booking.total|pluralize }}</p>
+                {% for key, value in booking.travellers.items %}
+                    <span>{{value}} {{ key }}{{value|pluralize}} </span>
+                {% endfor %}
+                <hr>
+                <p>Flight</p>
+                {% if booking.date %}
+                    <p>Departure Date: {{booking.date}}</p>
+                    <p id='side_dep_time'>Departure Time: {{ booking.dep_time }}</p>
+                {% else %}
+                    <p>Departure Date: {{ dep_date }}</p>
+                {% endif %}
+                <hr>
+                <button class="continue" id="add_flight_details" type="submit">Continue</button>
+            </aside>
+            </aside>
+        </div>
+    
+{% endblock %}
