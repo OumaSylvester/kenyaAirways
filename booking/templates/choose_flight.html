@@ -3,81 +3,121 @@
 {% load custom_tags %}
 {% block title %}Choose Flight{% endblock %}
 {% block content %}
-   
+        <header class="ms-3 logo mt-3">
+            <h1 class="h1"><a href="/" class="text-decoration-none">Red Airlines</a></h1>
+            <h5 class="m-4">Booking Process: <span >Search Flight</span> &rarr; <span class="step">Choose Flight</span> &rarr; <span>Personal detail</span> &rarr; <span>Payment</span> &rarr; <span>Finish<span></h5>
+        </header>
         {% if schedules %}                             
-            <div class="row">
-                <div class="col-8 hidden">
-                    <div class="row">
+            <div class="row ms-3">
+                <div class="col-sm-8 col-lg-8 me-5 hidden">
+                    <div class="row bg-white shadow-sm mb-3">
                         <div class="col-12">
-                            <p>Please select Flight</p>
-                            <p>{{ origin }} - {{ dest }} </p>
+                            <h3>Please select Flight</h3>
+                            <h5>{{ origin }} - {{ dest }} </h5>
                         </div>
                     </div>
                     <div class="row">
-                        <div id="schedules" class="scroll-container">
+                        <div id="schedules" class="scroll-container mb-5">
                             <div class="scrollable-container" class="col-12">
                                 <div class="items">                                
                                     {% for schedule in schedules %}
-                                        <div class="item">
+                                        {% if schedule.dates.dep_date == dep_date %}
+                                        <div class="item card pt-2 text-center  active-2" id="date{{ schedule.id }}" data-schedule-id="{{schedule.id}}">
+                                        {% else %}
+                                        <div class="item card pt-2 text-center bg-white" id="date{{ schedule.id }}" data-schedule-id="{{schedule.id}}">
+                                        {% endif %}
                                             {% with schedule.dates.dep_date.weekday as day %}
                                                 {% if day == 0 %}
 
                                                         {% if schedule.dates.dep_date == dep_date%}
-                                                            <span id="date{{ schedule.id }}" class="active-date">Monday {{ schedule.dates.dep_date}}</span>
+                                                            <span  class="date" data-schedule-id="{{schedule.id}}">Monday</span>
+                                                            <span data-schedule-id="{{schedule.id}}">{{ schedule.dates.dep_date.day }}, {{ schedule.dates.dep_date|date:'F' }}</span>
+                                                            <span data-schedule-id="{{schedule.id}}">{{ schedule.dates.dep_date.year }}</span>
                                                         {% else %}
-                                                            <span id="date{{ schedule.id }}">Monday {{ schedule.dates.dep_date}}</span>
+                                                            <span  class="date" data-schedule-id="{{schedule.id}}">Monday</span>
+                                                            <span data-schedule-id="{{schedule.id}}">{{ schedule.dates.dep_date.day }}, {{ schedule.dates.dep_date|date:'F' }}</span>
+                                                            <span data-schedule-id="{{schedule.id}}">{{ schedule.dates.dep_date.year }}</span>
                                                         {%endif%}                                                                                          
                                                 {% elif day == 1 %}
                                                     
-                                                        {% if schedule.dates.dep_date == dep_date%}
-                                                            <span id="date{{ schedule.id }}" class="active-date">Tuesday {{ schedule.dates.dep_date}}</span>
-                                                        {% else %}
-                                                            <span id="date{{ schedule.id }}">Tuesday {{ schedule.dates.dep_date}}</span>
-                                                        {%endif%}                                                                                                                                    
+                                                    {% if schedule.dates.dep_date == dep_date%}
+                                                        <span  class="date" data-schedule-id="{{schedule.id}}">Tuesday</span>
+                                                        <span data-schedule-id="{{schedule.id}}">{{ schedule.dates.dep_date.day }}, {{ schedule.dates.dep_date|date:'F' }}</span>
+                                                        <span data-schedule-id="{{schedule.id}}">{{ schedule.dates.dep_date.year }}</span>
+                                                    {% else %}
+                                                        <span  class="date" data-schedule-id="{{schedule.id}}">Tuesday</span>
+                                                        <span data-schedule-id="{{schedule.id}}">{{ schedule.dates.dep_date.day }}, {{ schedule.dates.dep_date|date:'F' }}</span>
+                                                        <span data-schedule-id="{{schedule.id}}">{{ schedule.dates.dep_date.year }}</span>
+                                                    {%endif%}                                                                                                                                      
                                                 {% elif day == 2 %}
                                                     
-                                                        {% if schedule.dates.dep_date == dep_date%}
-                                                            <span id="date{{ schedule.id }}" class="active-date">Wednesday {{ schedule.dates.dep_date}}</span>
-                                                        {% else %}
-                                                            <span id="date{{ schedule.id }}">Wednesday {{ schedule.dates.dep_date}}</span>
-                                                        {%endif%}                                                                                                                                         
+                                                    {% if schedule.dates.dep_date == dep_date%}
+                                                        <span class="date" data-schedule-id="{{schedule.id}}">Wednesday</span>
+                                                        <span data-schedule-id="{{schedule.id}}">{{ schedule.dates.dep_date.day }}, {{ schedule.dates.dep_date|date:'F' }}</span>
+                                                        <span data-schedule-id="{{schedule.id}}">{{ schedule.dates.dep_date.year }}</span>
+                                                    {% else %}
+                                                        <span  class="date" data-schedule-id="{{schedule.id}}">Wednesday</span>
+                                                        <span data-schedule-id="{{schedule.id}}">{{ schedule.dates.dep_date.day }}, {{ schedule.dates.dep_date|date:'F' }}</span>
+                                                        <span data-schedule-id="{{schedule.id}}">{{ schedule.dates.dep_date.year }}</span>
+                                                    {%endif%}                                                                                                                                             
                                                 {% elif day == 3 %}
                                                     
-                                                        {% if schedule.dates.dep_date == dep_date%}
-                                                            <span id="date{{ schedule.id }}" class="active-date">Thursday {{ schedule.dates.dep_date}}</span>
-                                                        {% else %}
-                                                            <span id="date{{ schedule.id }}">Thursday {{ schedule.dates.dep_date}}</span>
-                                                        {%endif%}                                                                                                                                          
+                                                        
+                                                    {% if schedule.dates.dep_date == dep_date%}
+                                                        <span class="date" data-schedule-id="{{schedule.id}}">Thursday</span>
+                                                        <span data-schedule-id="{{schedule.id}}">{{ schedule.dates.dep_date.day }}, {{ schedule.dates.dep_date|date:'F' }}</span>
+                                                        <span data-schedule-id="{{schedule.id}}">{{ schedule.dates.dep_date.year }}</span>
+                                                    {% else %}
+                                                        <span  class="date" data-schedule-id="{{schedule.id}}">Thursday</span>
+                                                        <span data-schedule-id="{{schedule.id}}">{{ schedule.dates.dep_date.day }}, {{ schedule.dates.dep_date|date:'F' }}</span>
+                                                        <span data-schedule-id="{{schedule.id}}">{{ schedule.dates.dep_date.year }}</span>
+                                                    {%endif%}                                                                                                                                              
                                                 {% elif day == 4 %}
                                                 
-                                                        {% if schedule.dates.dep_date == dep_date%}
-                                                        <span id="date{{ schedule.id }}" class="active-date">Friday {{ schedule.dates.dep_date}}</span>
-                                                        {% else %}
-                                                            <span id="date{{ schedule.id }}">Friday {{ schedule.dates.dep_date}}</span>
-                                                        {%endif%}                                                                                                                                                
+                                                    {% if schedule.dates.dep_date == dep_date%}
+                                                        <span  class="date" data-schedule-id="{{schedule.id}}">Friday</span>
+                                                        <span data-schedule-id="{{schedule.id}}">{{ schedule.dates.dep_date.day }}, {{ schedule.dates.dep_date|date:'F' }}</span>
+                                                        <span data-schedule-id="{{schedule.id}}">{{ schedule.dates.dep_date.year }}</span>
+                                                    {% else %}
+                                                        <span  class="date" data-schedule-id="{{schedule.id}}">Friday</span>
+                                                        <span data-schedule-id="{{schedule.id}}">{{ schedule.dates.dep_date.day }}, {{ schedule.dates.dep_date|date:'F' }}</span>
+                                                        <span data-schedule-id="{{schedule.id}}">{{ schedule.dates.dep_date.year }}</span>
+                                                    {%endif%}                                                                                                                                                    
                                                 {% elif day == 5 %}                                            
-                                                        {% if schedule.dates.dep_date == dep_date%}
-                                                        <span id="date{{ schedule.id }}" class="active-date">Surtaday {{ schedule.dates.dep_date}}</span>
-                                                        {% else %}
-                                                            <span id="date{{ schedule.id }}">Surtaday {{ schedule.dates.dep_date}}</span>
-                                                        {%endif%}                                                                                                                                        
+                                                    {% if schedule.dates.dep_date == dep_date%}
+                                                        <span  class="date" data-schedule-id="{{schedule.id}}">Saturday</span>
+                                                        <span data-schedule-id="{{schedule.id}}">{{ schedule.dates.dep_date.day }}, {{ schedule.dates.dep_date|date:'F' }}</span>
+                                                        <span data-schedule-id="{{schedule.id}}">{{ schedule.dates.dep_date.year }}</span>
+                                                     {% else %}
+                                                        <span  class="date" data-schedule-id="{{schedule.id}}">Saturday</span>
+                                                        <span data-schedule-id="{{schedule.id}}">{{ schedule.dates.dep_date.day }}, {{ schedule.dates.dep_date|date:'F' }}</span>
+                                                        <span data-schedule-id="{{schedule.id}}">{{ schedule.dates.dep_date.year }}</span>
+                                                    {%endif%}                                                                                                                                            
                                                 {% elif day == 6 %}                                                
                                                         {% if schedule.dates.dep_date == dep_date%}
-                                                            <span id="date{{ schedule.id }}" class="active-date">Sunday {{ schedule.dates.dep_date}}</span>
+                                                            <span  class="date" data-schedule-id="{{schedule.id}}">Sunday</span>
+                                                            <span data-schedule-id="{{schedule.id}}">{{ schedule.dates.dep_date.day }}, {{ schedule.dates.dep_date|date:'F' }}</span>
+                                                            <span data-schedule-id="{{schedule.id}}">{{ schedule.dates.dep_date.year }}</span>
                                                         {% else %}
-                                                            <span id="date{{ schedule.id }}">Sunday {{ schedule.dates.dep_date}}</span>
-                                                        {%endif%}                                        
+                                                            <span  class="date" data-schedule-id="{{schedule.id}}">Sunday</span>
+                                                            <span data-schedule-id="{{schedule.id}}">{{ schedule.dates.dep_date.day }}, {{ schedule.dates.dep_date|date:'F' }}</span>
+                                                            <span data-schedule-id="{{schedule.id}}">{{ schedule.dates.dep_date.year }}</span>
+                                                        {%endif%}                                           
                                                 {% endif %}
                                             {% endwith %}
                                         </div>
                                     {% endfor %}                                
                                 </div>
                             </div>
-                            <button class="scroll-btn prev-btn">&#8249;</button>
-                            <button class="scroll-btn next-btn">&#8250;</button>                        
-                        </div>
+                            
+                            <button class="scroll-btn prev-btn"> &larr;</button>
                     
-                    
+                        
+                            <button class="scroll-btn next-btn"> &rarr;</button>  
+                                            
+                        </div>                    
+                    </div>  
+                    <div class="row">
                         <div id="schedules-table">
                             {% for schedule in schedules %}
                                     {% if schedule.dates.dep_date == dep_date %}
@@ -85,27 +125,27 @@
                                             {% for time in schedule.times %}
                                                 {% ifchanged time.dep_time %}
                                                     
-                                                        <div class="row">
-                                                            <div class="col-lg-6">
-                                                                <span id="dep-{{time.dep_time}}">{{ time.dep_time}}</span> - <span id="">{{ time.arrival_time }}</span>
-                                                                <p>{{ time.plane_no}}</p>
+                                                        <div class="row bg-white mb-4 ">
+                                                            <div class="col-12 col-sm-2 col-lg-4   mt-2 time">
+                                                                <span id="dep-{{time.dep_time}}" class="dep-time">{{ time.dep_time}} - {{ time.arrival_time }}</span>
+                                                                <span>{{ time.plane_no}}</span>
                                                             </div>
-                                                            <div class="col-lg-2" data-time-id={{time.time_id}} data-time-dep="{{time.dep_time}}" >
+                                                            <div class="col-12 col-sm-3 col-lg-2  p-3 m-bottom  text-center seat_class card seat_class seat_class-a" data-time-id={{time.time_id}} data-time-dep="{{time.dep_time}}" >
                                                                 {% if time.class_a_exe >= total_travellers %}
                                                                     <span>Class A Executive</span>
-                                                                    <p>Ksh {{ time.price_a}}</p>
+                                                                    <span>Ksh {{ time.price_a|floatformat:0}}</span>
                                                                 {% endif %}
                                                             </div>
-                                                            <div class="col-lg-2" data-time-id={{time.time_id}} data-time-dep="{{time.dep_time}}" data-date-dep="{{schedule.dates.dep_date}}">
+                                                            <div class="col-12 col-sm-3 col-lg-2 p-3  m-bottom text-center seat_class card seat_class seat_class-b" data-time-id={{time.time_id}} data-time-dep="{{time.dep_time}}" data-date-dep="{{schedule.dates.dep_date}}">
                                                                 {% if time.class_b_mid >= total_travellers %}
-                                                                    <span>Class B Middle </span>
-                                                                    <p>Ksh {{ time.price_b}}</p>
+                                                                    <span>Class B Middle Class</span>
+                                                                    <span>Ksh {{ time.price_b|floatformat:0}}</span>
                                                                 {% endif %}
                                                             </div>
-                                                            <div class="col-lg-2" data-time-id={{time.time_id}} data-time-dep="{{time.dep_time}}" data-date-dep="{{schedule.dates.dep_date}}">
+                                                            <div class="col-12 col-sm-3 col-lg-2 m-bottom p-3 text-center seat_class card seat_class seat_class-c" data-time-id={{time.time_id}} data-time-dep="{{time.dep_time}}" data-date-dep="{{schedule.dates.dep_date}}">
                                                                 {% if time.class_c_lower >= total_travellers %}
-                                                                    <span>Class C Lower </span>
-                                                                    <p>Ksh {{ time.price_c}}</p>
+                                                                    <span>Class C Lower Class</span>
+                                                                    <span>Ksh {{ time.price_c|floatformat:0}}</span>
                                                                 {% endif %}
                                                             </div>
 
@@ -119,27 +159,27 @@
                                         {% for time in schedule.times %}
                                             {% ifchanged time.dep_time %}
                                                 
-                                                    <div class="row" id="{{ time.time_id }}">
-                                                        <div class="col-lg-6" id="dep-time">
-                                                            <span id="dep-{{time.dep_time}}">{{ time.dep_time}}</span> - <span id="">{{ time.arrival_time }}</span>
-                                                            <p>{{ time.plane_no}}</p>
+                                                    <div class="row bg-white mb-4" id="{{ time.time_id }}">
+                                                        <div class="col mt-2 time">
+                                                            <span id="dep-{{time.dep_time}}">{{ time.dep_time}} - {{ time.arrival_time }}</span>
+                                                            <span>{{ time.plane_no}}</span>
                                                         </div>
-                                                        <div class="col-lg-2" data-time-id={{time.time_id}} data-time-dep="{{time.dep_time}}" data-date-dep="{{schedule.dates.dep_date}}">
+                                                        <div class="col col-12 mb-3 p-3 text-center seat_class card seat_class seat_class-a" data-time-id={{time.time_id}} data-time-dep="{{time.dep_time}}" >
                                                             {% if time.class_a_exe >= total_travellers %}
-                                                                <span >Class A Executive</span>
-                                                                <p>Ksh {{ time.price_a}}</p>
+                                                                <span>Class A Executive</span>
+                                                                <span>Ksh {{ time.price_a|floatformat:0}}</span>
                                                             {% endif %}
                                                         </div>
-                                                        <div class="col-lg-2" data-time-id={{time.time_id}} data-time-dep="{{time.dep_time}}" data-date-dep="{{schedule.dates.dep_date}}">
+                                                        <div class="col col-12 mb-3 p-3 text-center seat_class card seat_class seat_class-b" data-time-id={{time.time_id}} data-time-dep="{{time.dep_time}}" data-date-dep="{{schedule.dates.dep_date}}">
                                                             {% if time.class_b_mid >= total_travellers %}
-                                                                <span >Class B Middle </span>
-                                                                <p>Ksh {{ time.price_b}}</p>
+                                                                <span>Class B Middle Class </span>
+                                                                <span>Ksh {{ time.price_b|floatformat:0}}</span>
                                                             {% endif %}
                                                         </div>
-                                                        <div class="col-lg-2" data-time-id={{time.time_id}} data-time-dep="{{time.dep_time}}" data-date-dep="{{schedule.dates.dep_date}}">
+                                                        <div class="col col-12 mb-3 p-3 text-center seat_class card seat_class seat_class-c" data-time-id={{time.time_id}} data-time-dep="{{time.dep_time}}" data-date-dep="{{schedule.dates.dep_date}}">
                                                             {% if time.class_c_lower >= total_travellers %}
-                                                                <span>Class C Lower </span>
-                                                                <p>Ksh {{ time.price_c}}</p>
+                                                                <span>Class C Lower Class</span>
+                                                                <span>Ksh {{ time.price_c|floatformat:0}}</span>
                                                             {% endif %}
                                                         </div>
 
@@ -150,30 +190,34 @@
                                     </div>
                                     {% endif %}
                             {% endfor %}
-                        </div>  
+                        </div>
                     </div>       
                 </div>                               
-                <aside class="col-4">
-                    <h1>Your booking</h1>
-                    <p>{{booking.origin}} - {{booking.dest}}</p>
-                    {% if booking.seat_class %}
-                        <p id='side_seat_class'>{{booking.seat_class}}</p>
-                    {% endif %}
-                    <hr>
-                    <p>{{ booking.total_travellers }} Traveller{{ booking.total|pluralize }}</p>
-                    {% for key, value in booking.travellers.items %}
-                        <span>{{value}} {{ key }}{{value|pluralize}} </span>
-                    {% endfor %}
-                    <hr>
-                    <p>Flight</p>
-                    {% if booking.date %}
-                        <p id="side_dep_date">Departure Date: {{booking.date}}</p>
-                        <p id='side_dep_time'>Departure Time: {{ booking.dep_time }}</p>
-                    {% else %}
-                        <p id="side_dep_date">Departure Date: {{ dep_date }}</p>
-                    {% endif %}
-                    <hr>
-                    <button class="continue" id="add_flight_details" type="submit">Continue</button>
+                <aside class="col-12 col-sm-3 col-lg-3">
+                    <div class="p-3 shadow bg-white">
+                        <h3>Your booking</h3>
+                        <p>{{booking.origin}} - {{booking.dest}}</p>
+                        {% if booking.seat_class %}
+                            <p id='side_seat_class'>{{booking.seat_class}}</p>
+                        {% endif %}
+                        <hr>
+                        <h5>{{ booking.total_travellers }} Traveller{{ booking.total_travellers|pluralize }}</h5>
+                        {% for key, value in booking.travellers.items %}
+                            {% if value %}
+                                <span class="aside-pass">{{value}} {{ key }}{{value|pluralize}} </span>
+                            {% endif %}
+                        {% endfor %}
+                        <hr>
+                        <h5>Flight</h5>
+                        {% if booking.date %}
+                            <p id="side_dep_date">Departure Date: {{booking.date}}</p>
+                            <p id='side_dep_time'>Departure Time: {{ booking.dep_time }}</p>
+                        {% else %}
+                            <p id="side_dep_date">Departure Date: {{ dep_date }}</p>
+                        {% endif %}
+                        <hr>
+                        <button class="continue red form-control btn btn-lg btn-danger" id="add_flight_details" type="submit">Continue</button>
+                    </div>
                 </aside>
             </div>
       

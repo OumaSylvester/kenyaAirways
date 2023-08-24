@@ -19,7 +19,7 @@ def payment_completed(booking_id, passenger_id):
     booking = Booking.objects.get(id=booking_id)
     # Create invoice -email
     # Todo: Check how to translate formated text and the invoice
-    subject = f'Blue Airlines Ticket. {booking.id}'
+    subject = f'Red Airlines Ticket. {booking.id}'
     message = 'Please, find attached tickedt for your booking'
     email = EmailMessage(subject,
                          message,
@@ -27,9 +27,9 @@ def payment_completed(booking_id, passenger_id):
                          [passenger.email])
 
     # generate PDF
-    html = render_to_string('pdf.html', {'booking': booking})
+    html = render_to_string('pdf.html', {'booking': booking, 'passenger': passenger})
     out = BytesIO()
-    stylesheets = [weasyprint.CSS(settings.STATIC_ROOT / 'css/pdf.css')]
+    stylesheets = [weasyprint.CSS(settings.STATIC_ROOT / 'css/pdf.css'), ]
     weasyprint.HTML(string=html).write_pdf(out, stylesheets=stylesheets)
 
     # attach pdf file

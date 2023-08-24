@@ -10,7 +10,7 @@ from .bookings import Booking
 from .tasks import payment_completed
 from django_daraja.mpesa.core import MpesaClient
 import json
-
+import time
 
 def seach_flight_view(request):
     form = SearchForm()
@@ -37,7 +37,9 @@ def seach_flight_view(request):
             # Get schedules for the search criteria
             schedules = Schedule.objects.filter(dep_date__gte=datetime.today(),  routes__origin=origin, routes__dest=dest).distinct()\
                 .order_by("dep_date", "times__dep_time")
-            
+            if not schedules:
+                return render(request, 
+                            'choose_flight.html', {'schedules': []})
             route_data = []
             times = []
             for schedule in schedules:                        
@@ -54,8 +56,8 @@ def seach_flight_view(request):
                                     time_data['price_b'] = route.price_B
                                     time_data['price_c'] = route.price_C
                                     time_data['class_a_exe'] = plane.seats.filter(available=True, seat_class__class_name="Class A - Executive").count()
-                                    time_data['class_b_mid'] = plane.seats.filter(available=True, seat_class__class_name="Class B - Middle Class").count()
-                                    time_data['class_c_lower'] = plane.seats.filter(available=True, seat_class__class_name="Class C - Lower Class").count()
+                                    time_data['class_b_mid'] = plane.seats.filter(available=True, seat_class__class_name="Class B - Middle").count()
+                                    time_data['class_c_lower'] = plane.seats.filter(available=True, seat_class__class_name="Class C - Lower").count()
                                     times.append(time_data)
                 # Find out how the duplcates end up in the data. If a date has 2 times, the date is added twice ....3...
                 if times:
@@ -156,7 +158,7 @@ def add_passenger_view(request):
 
 
 def mpesa_payment_view(request):
-    booking_session = Booking(request)
+    booking_session = Booking(request).booking
     # id = booking_session.booking.get('id')
     # booking = get_object_or_404(booking_table,  id=id)
     if request.method == 'POST':
@@ -164,14 +166,18 @@ def mpesa_payment_view(request):
         if form.is_valid():
             cl = MpesaClient()
             phone_number = form.cleaned_data.get('number')
-            amount = int(booking_session.get_total_cost(booking_session.booking['route']))
+            # amount = int(booking_session.get_total_cost(booking_session.booking['route']))
             account_reference = 'Blue Flights'
             transaction_desc = 'Blue Flights Booking'
             callback_url = 'https://api.darajambili.com/express-payment'
            
             response = cl.stk_push(phone_number, 1, account_reference, transaction_desc, callback_url)
 
-            return HttpResponse(response.text) 
+            # return HttpResponse(response.json) 
+            # form = MpesaContactForm()
+            booking_session['response'] = response
+            time.sleep(3)
+            return redirect('booking:search_flight')
     else:
          form = MpesaContactForm()
          return render(request, 'mpesa-contact.html', {'form': form})

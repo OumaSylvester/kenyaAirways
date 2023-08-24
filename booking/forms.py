@@ -50,7 +50,7 @@ class PassengerForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for visible in self.visible_fields():
-            visible.field.widget.attrs['class'] = 'form-control'
+            visible.field.widget.attrs['class'] = 'form-control form-control-lg'
             
     class Meta:
         model = Passenger
@@ -65,6 +65,6 @@ class MpesaContactForm(forms.Form):
         strip=True,
         label='Mpesa Number',
          required=True,
-         widget=forms.NumberInput(attrs={'class': 'form-control', 'aria-label': 'Number of infants', 'placeholder': '0712345678'}))
+         widget=forms.NumberInput(attrs={'class': 'form-control form-control-lg', 'aria-label': 'Number of infants', 'placeholder': '0712345678'}))
 
     

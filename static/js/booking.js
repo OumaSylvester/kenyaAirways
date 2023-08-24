@@ -72,7 +72,7 @@
 const scrollableContainer = document.querySelector('.scrollable-container');
 const prevBtn = document.querySelector('.prev-btn');
 const nextBtn = document.querySelector('.next-btn');
-const itemWidth = 220; // Adjust this based on your item width and margin
+const itemWidth = 50; // Adjust this based on your item width and margin
 
 prevBtn.addEventListener('click', () => {
   scrollableContainer.scrollBy({
@@ -94,13 +94,28 @@ nextBtn.addEventListener('click', () => {
 document.getElementById('schedules').addEventListener('click', displayTimes);
 
 function displayTimes(e){
-    let targetid = e.target.id;
-    if(targetid.includes('date')){
-        let scheduleId = targetid.substring(4, targetid.leghth);
+    let target = e.target;
+    // let targetid = e.target.id;
+    if(target.hasAttribute('data-schedule-id')){//className.includes('item') && (target.id.includes('date') || target.tagName == 'span')){
+        let scheduleId = target.getAttribute('data-schedule-id')
+        console.log('Schedule '+scheduleId);
         localStorage.setItem('scheduleId', scheduleId);
+        let dateItem = document.getElementById('date'+scheduleId);
+        dateItem.classList.remove('bg-white');
+        dateItem.classList.add('active-2');
+
+        // make a function to get all siblings of an element. Hint: use prevSibling, nextSibling
+        let siblings = $('#date' + scheduleId).siblings();
+        for(let i=0; i<siblings.length; i++){
+          siblings[i].classList.remove('acive-2');
+          siblings[i].classList.add('bg-white');
+          console.log('sibling: ')
+        }
+
         let scheduleElem = document.getElementById(scheduleId);
+        console.log('Classes: ' + dateItem.classList);
         let dep_date = scheduleElem.getAttribute('data-date-dep');
-        document.getElementById('side_dep_date').innerHTML = "Departure Time: " + dep_date;
+        document.getElementById('side_dep_date').innerHTML = "Departure Date: " + dep_date;
         console.log("Date: " + dep_date);
 
         let schedules = document.getElementById('schedules-table')
@@ -170,3 +185,5 @@ function add_to_booking_store(e){
     console.log('Not even close')
   }
 }
+
+

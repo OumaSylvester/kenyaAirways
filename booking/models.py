@@ -159,7 +159,7 @@ class Booking(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     customer = models.ForeignKey(Passenger, 
                                     related_name="bookings",
-                                    on_delete=models.PROTECT)
+                                    on_delete=models.CASCADE)
     adults = models.IntegerField()
     youths = models.IntegerField()
     children = models.IntegerField()

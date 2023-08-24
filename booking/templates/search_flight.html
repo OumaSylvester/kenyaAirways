@@ -3,10 +3,13 @@
 {% block title %}Search Flight {% endblock %}
 {% block content %}
     <div class="container">
-       
+        <header class="ms-3 logo mt-3">
+            <h1 class="h1"><a href="/" class="text-decoration-none">Red Airlines</a></h1>
+            <h5 class="m-4">Booking Process: <span class="step">Search Flight</span> &rarr; <span>Choose Flight</span> &rarr; <span>Personal detail</span> &rarr; <span>Payment</span> &rarr; <span>Finish<span></h5>
+        </header>
         <form action="{% url  'booking:search_flight' %}" method="get">
             {% csrf_token %}
-            <div class="row g-3">
+            <div class="row g-3 line ">
                 <h2 class="h2">Search for Flight</h2>
                 <div class="col-sm-3">
                     <label for="{{ form.origin.id_for_label }}" class="form-label">From*</label>
@@ -27,10 +30,10 @@
                 </div>
                 <div class="col-sm-3 dropdown btn-align">
                     <span>&nbsp;</span>{% comment %} Not a good solution. Adding unnecessary html for layout...use css intead to  {% endcomment %}
-                    <button class="btn btn-primary btn-lg dropdown-toggle form-control mt-2" type="button" id="add_pass" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="btn btn-danger btn-lg dropdown-toggle form-control mt-2 red" type="button" id="add_pass" data-bs-toggle="dropdown" aria-expanded="false">
                         1 Passenger
                     </button>
-                    <ul  class="dropdown-menu" aria-labelledby="Number of passengers">
+                    <ul  class="dropdown-menu " aria-labelledby="Number of passengers">
                         <li class="dropdown-item">
                             <label for="{{ form.adults.id_for_label }}" class="form-label">Adults</label>
                             {{ form.adults }}
@@ -58,14 +61,18 @@
                 </div>
                 <div class="col-sm-9 btn-align">        
                     <span>&nbsp;</span>            
-                    <input type="submit" name="submit" value="Book Now" class="form-control btn btn-lg btn-primary mt-2 mb-3"/>
+                    <input type="submit" name="submit" value="Book Now" class="form-control btn-danger btn btn-lg  mt-2 mb-3 red"/>
                 </div>
                 
             </div>
+            
         </form>
+        
+        
     </div>
     <script>
-        document.querySelector('.dropdown-menu').addEventListener('input', (e)=>{
+        let  dropDown = document.querySelector('.dropdown-menu');
+        dropDown.addEventListener('input', (e)=>{
             let adults = document.getElementById('id_adults').value;
             let youths = document.getElementById('id_youths').value;
             let children = document.getElementById('id_children').value;
@@ -82,5 +89,11 @@
             } 
           
           });
+          /*
+        dropDown.addEventListener('focus' (e){
+            if(e.target.tagName == 'input'){
+                e.target.parentElement.style.background-color = '#ec0921'
+            }
+        })*/
     </script>
 {% endblock %}

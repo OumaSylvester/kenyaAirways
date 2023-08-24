@@ -4,45 +4,70 @@
 
 {% block title %}{% trans "Pay with Mpesa" %}{% endblock %}
 {% block content %}
-
-    <div class="row">
+    <header class="ms-3 logo mt-3">
+        <h1 class="h1"><a href="/" class="text-decoration-none">Red Airlines</a></h1>
+        <h5 class="m-4">Booking Process: <span >Search Flight</span> &rarr; <span >Choose Flight</span> &rarr; <span >Personal details</span> &rarr; <span class="step">Payment</span> &rarr; <span>Finish<span></h5>
+    </header>
+    <div class="row ms-3">
         <div class="col-sm-8">
             {% comment %} <h1>{% trans "Pay for your Booking" %}</h1> {% endcomment %}
-            <form action="{% url 'booking:payment' %}" method="post" style="margin-top: 15px;">
+            <form action="{% url 'booking:payment' %}" method="post" style="margin-top: 15px;" class="mobile-form">
                 {% csrf_token %}
                 <h2 class="h2">Payment Details</h2>
-                <div class="mb-3 row col-sm-6">
+                <div class="mb-3 row col-sm-6 mb-5">
                     <label for="{{ form.number.id_for_label }}" class="form-label">Phone Number*</label>
                     {{ form.number }}
                 </div>
                 <div class="mb-3 row col-sm-6">
-                    <input type="submit" name="submit" value="Submit" class=" form-control btn btn-lg btn-primary"/>
+                    <input type="submit" name="submit" value="Submit" class=" form-control btn btn-lg btn-danger" data-bs-toggle="modal" data-bs-target="#payment-modal"/>
                 </div>
             </form>   
         </div>
-        {{booking.id}}
+        {% if booking %}
+        <div class="modal fade" id="payment-modal" tabindex="-1" aria-labelledby="Booking Succesful" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title" id="payment-modal-label">Payment</h3>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Booking successful</h4>
+                    </div>
+                    <div class="modal-footer">
+                        {% comment %} <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> {% endcomment %}
+                        {% comment %} <button type="button" class="btn btn-danger">Ok</button> {% endcomment %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
     
-        <aside class="col-4">
-            <h1>Your booking</h1>
-            <p id='side_seat_class'>{{booking.origin}} - {{booking.dest}}</p>
-            {% if booking.seat_class %}
-                <p>{{booking.seat_class}}</p>
-            {% endif %}
-            <hr>
-            <p>{{ booking.total_travellers }} Traveller{{ booking.total|pluralize }}</p>
-            {% for key, value in booking.travellers.items %}
-                <span>{{value}} {{ key }}{{value|pluralize}} </span>
-            {% endfor %}
-            <hr>
-            <p>Flight</p>
-            {% if booking.date %}
-                <p>Departure Date: {{booking.date}}</p>
-                <p id='side_dep_time'>Departure Time: {{ booking.dep_time }}</p>
-            {% else %}
-                <p>Departure Date: {{ dep_date }}</p>
-            {% endif %}
-            <hr>
-            <button class="continue" id="add_flight_details" type="submit">Continue</button>
+        <aside class="col-sm-3 mb-4">
+            <div class="p-3 shadow bg-white">
+                <h3>Your booking</h3>
+                <p>{{booking.origin}} - {{booking.dest}}</p>
+                {% if booking.seat_class %}
+                    <p id='side_seat_class'>{{booking.seat_class}}</p>
+                {% endif %}
+                <hr>
+                <h5>{{ booking.total_travellers }} Traveller{{ booking.total_travellers|pluralize }}</h5>
+                {% for key, value in booking.travellers.items %}
+                    {% if value %}
+                        <span class="aside-pass">{{value}} {{ key }}{{value|pluralize}} </span>
+                    {% endif %}
+                {% endfor %}
+                <hr>
+                <h5>Flight</h5>
+                {% if booking.date %}
+                    <p id="side_dep_date">Departure Date: {{booking.date}}</p>
+                    <p id='side_dep_time'>Departure Time: {{ booking.dep_time }}</p>
+                {% else %}
+                    <p id="side_dep_date">Departure Date: {{ dep_date }}</p>
+                {% endif %}
+                <hr>
+                {% comment %} <button class="continue red form-control btn btn-lg btn-danger" id="add_flight_details" type="submit">Continue</button> {% endcomment %}
+            </div>
         </aside>
     </div>
 

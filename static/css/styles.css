@@ -31,6 +31,17 @@
     margin-left: 0;
   }
   */
+  
+  body{
+    background-color: #f3f3f3;
+  }
+  .container{
+    /* background-color: #f3f3f3;; */
+  }
+  .logo h1 a{
+    color: #e20714;
+  }
+
   label {
     margin-left: 10px;
   }
@@ -44,13 +55,22 @@
   }
 
  /* Gtp scrollable container */
+ .col-sm-9{
+  /* border: 1px solid red; */
+ }
   .scroll-container {
     position: relative;
     overflow: hidden;
+    overflow: visible;
     width: 100%;
+    /* margin-left: 0.3rem;
+    margin-right: 0.3rem; */
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
   
   .scrollable-container {
+    width: 96%;
     display: flex;
     flex-direction: row;
     overflow-x: hidden;
@@ -60,33 +80,161 @@
   .items {
     display: flex;
     flex-direction: row;
+    margin-left: 2rem;
+    margin-right: 2rem;
   }
   
   .item {
     flex: 0 0 auto;
-    width: 200px;
-    height: 200px;
+    width: 12%; 
+    /*height: 200px; */
     margin: 10px;
-    background-color: skyblue;
+    
+    border: none;
   }
-  
+  .date{
+    padding-bottom: 0.2rem;
+  }
+  .bg-white{
+    background-color: white;
+  }
   .scroll-btn {
+    font-size: 1.8rem;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    padding: 10px;
-    font-size: 20px;
-    background-color: lightgray;
+    padding: 0.3rem;    
+    border-radius: 5px;
     border: none;
     cursor: pointer;
+    color:#ec0921;
+    background-color: white;
   }
   
   .prev-btn {
-    left: 2rem;
+    left:0;
     
   }
   
   .next-btn {
-    right: 2rem;
+    right: 0;
   }
+
+.item, .seat_class{
+  cursor:pointer;
+}
+.time{
+  margin-top: 0.5rem;
+  margin-right: 1rem;
+}
+.shadow{
+  border-radius: 5px;
+}
+.time span{
+  display: block;
+  margin-bottom: 1rem;
+}
+.dep-time{
+  font-weight: bold;
+}
+.aside-pass{
+  display: inline-block;
+  margin-right: 1rem;
+}
+
+.seat_class{
+  padding: 0.5rem;
+  border: none;
+  margin-left: 1rem;
+  color: rgba(255, 255, 255, 0.9);
   
+}
+.mright{
+  margin-right: -2rem;
+}
+.seat_class-a{  
+  background-color: #bc2020;
+}
+.seat_class-b{  
+  background-color: #bc4720;
+}
+
+.seat_class-c{
+  background-color: #bc6e20;
+ 
+}
+.line{
+  border: 1px solid rgb(230, 226, 226);
+  margin-top: 3rem;
+  border-radius: 5px;
+}
+
+/* .red{
+  background-color: #ec0921;
+  color: white;
+  border: none;
+  outline: #ec0921;
+}
+.red:hover{
+  background-color: #ec0921;
+  outline: #ec0921;
+  color: white;
+}
+.red:focus{
+  outline: #ec0921;
+  color: white;
+}
+.continue{
+  border: none;
+} */
+
+.btn-danger, .btn:hover, .btn-danger:focus, .btn-danger:active, .btn-danger:visited{
+  background-color: #ec0921 !important;
+  border-color: #ec0921;
+  color: white;
+}
+.dropdown-menu li:focus, .dropdown-menu li:active, .dropdown-menu li:visited{
+  background-color: white !important;
+} 
+.continue:hover, .continue:focus, .continue:active, .continue:visited{
+  background-color: #108043;
+}
+.active-2{
+  background-color: #d8d8d8;
+  /* background-color: #108043; */
+}
+
+.logo h5 > span{
+  display: inline-block;
+  margin-left: 0.4rem;
+  margin-right: 0.4rem;
+}
+.step{
+  background-color: #108043;
+  border-radius: 5px;
+  color: white;
+  padding: 0.6rem;
+}
+
+.modal-body h4{
+  color: #108043;
+}
+@media only screen and (max-width: 600px) {
+  .logo h5{
+    display: none;
+  }
+  .row, .row aside{
+    margin-left: -1.8rem;
+  }
+  .m-bottom{
+    width: 90%;
+    margin-bottom: 0.6rem;
+  }
+  .row aside > div{
+    margin-left: 2rem;
+  }
+  .mobile-form{
+    margin-right: 0.6rem;
+  }
+
+}
