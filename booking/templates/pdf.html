@@ -18,7 +18,7 @@
         <tr><td>Name: {{ passenger.first_name }} {{ passenger.last_name }}</td></tr>
         <tr><td>Email: {{ passenger.email }}</td></tr>
         <tr><td>Departure Date: {{booking.schedule.dep_date}}</td></tr>
-        <tr><td>Departure Time: {{booking.schedule.dep_time}}</td></tr>
+        <tr><td>Departure Time: {{booking.time.dep_time}}</td></tr>
         {% comment %} <tr><td>Seat Number: {{booking.schedule.dep_date}}</td></tr> {% endcomment %}
         <tr><td>Price: {{booking.cost|floatformat:2}}</td></tr>
         
